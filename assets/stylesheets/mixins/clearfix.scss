@@ -1,0 +1,17 @@
+/*!
+ * Clearfix
+ * create: 2018/07/19
+ * since: 0.0.1
+ */
+@mixin clearfix() {
+
+  &:before,
+  &:after {
+    content: ' ';
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}

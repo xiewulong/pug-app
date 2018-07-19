@@ -1,0 +1,14 @@
+extends layouts/application.layout.pug
+
+append css
+  link(rel="stylesheet", type="text/css", href=`./css/index.css`)
+
+append js
+  script(type="text/javascript", src=`./js/index.js`)
+
+block title
+  = 'Page list - '
+
+block content
+  ol
+    li: a(href="bootstrap.html" target="_blank") Bootstrap layout

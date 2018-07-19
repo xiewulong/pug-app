@@ -1,1 +1,3 @@
-# pug-app
+# Pug app
+
+App frame on pug
