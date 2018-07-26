@@ -32,10 +32,10 @@ fs.readdirSync(page_path).forEach(filename => {
   if(!/\.html$/.test(name)) return;
   pages.push(new WebpackHtmlPlugin({
     title: {
-      version: pkg.version,
       author: pkg.author,
-      keywords: pkg.keywords.join(', '),
       description: pkg.description,
+      keywords: pkg.keywords.join(', '),
+      version: pkg.version,
     },
     template: `${page_path}/${name}.pug`,
     filename: `../${name}`,
