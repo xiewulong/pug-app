@@ -5,9 +5,9 @@
  */
 'use strict';
 
-// Common stylesheets
+// Stylesheets
 import 'normalize.css';
 import '../../stylesheets/common.scss';
 
-// Common javascripts
+// Javascripts
 import 'jquery';
