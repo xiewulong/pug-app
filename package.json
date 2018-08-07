@@ -5,9 +5,10 @@
   "private": true,
   "scripts": {
     "build": "npm run webpack -- --display-error-details --mode=production --optimize-minimize",
+    "dev": "npm run webpack -- --debug --mode=development --output-pathinfo --watch",
     "release": "npm run build",
     "test": "npm start",
-    "start": "npm run webpack -- --debug --mode=development --output-pathinfo --watch",
+    "start": "npm run dev",
     "webpack": "webpack --colors --devtool sourcemap --progress"
   },
   "repository": {
