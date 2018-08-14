@@ -11,6 +11,8 @@ const path = require('path');
 const webpack = require('webpack');
 const WebpackHtmlPlugin = require('html-webpack-plugin');
 const WebpackMiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackOptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const WebpackUglifyjsPlugin = require('uglifyjs-webpack-plugin');
 const pkg = require('./package.json');
 
 const base_path = __dirname;
@@ -120,11 +122,23 @@ module.exports = {
     ],
   },
   optimization: {
+    minimizer: [
+      new WebpackUglifyjsPlugin({
+        uglifyOptions: {
+          output: {comments: false},
+          ie8: true,
+        },
+      }),
+      new WebpackOptimizeCSSAssetsPlugin({
+        cssProcessorOptions: {discardComments: {removeAll: true}},
+      }),
+    ],
     splitChunks: {
       cacheGroups: {
         common: {
           chunks: 'all',
           minChunks: 2,
+          minSize: 1,
           name: 'common',
         },
       },
