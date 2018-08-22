@@ -13,11 +13,11 @@ module.exports = {
     require('autoprefixer'),
     require('postcss-sprites')({
       retina: true,
-      spritePath: './assets/images/',
+      spritePath: './src/images/',
       filterBy(image) {
         let group = /\/images\/([^\/]+)\/[^\/]+\.[^\/]+$/i.exec(image.path);
 
-        return Promise[group ? 'resolve' : 'reject']();
+        return Promise[ group ? 'resolve' : 'reject' ]();
       },
       groupBy(image) {
         let group = /\/images\/([^\/]+)\/[^\/]+\.[^\/]+$/i.exec(image.path);

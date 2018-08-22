@@ -22,16 +22,19 @@ const page_path = `${base_path}/views`;
 
 let entries = {};
 fs.readdirSync(entry_path).forEach(filename => {
-  if(!fs.statSync(`${entry_path}/${filename}`).isFile()) return;
+  if (!fs.statSync(`${entry_path}/${filename}`).isFile()) return;
+
   let name = path.parse(filename).name;
   entries[name] = `${entry_path}/${name}`;
 });
 
 let pages = [];
 fs.readdirSync(page_path).forEach(filename => {
-  if(!fs.statSync(`${page_path}/${filename}`).isFile()) return;
+  if (!fs.statSync(`${page_path}/${filename}`).isFile()) return;
+
   let name = path.parse(filename).name;
-  if(!/\.html$/.test(name)) return;
+  if (!/\.html$/.test(name)) return;
+
   pages.push(new WebpackHtmlPlugin({
     title: {
       author: pkg.author,
@@ -55,7 +58,7 @@ module.exports = {
     alias: {
       // 'vue$': `vue/dist/vue.common.js`,
     },
-    // extensions: ['.js', '.web.js', '.webpack.js'],
+    // extensions: [ '.js', '.web.js', '.webpack.js' ],
   },
   externals: {
     jquery: 'jQuery',
@@ -92,7 +95,7 @@ module.exports = {
       },
       {
         test: /\.js?$/,
-        use: ['babel-loader'],
+        use: [ 'babel-loader' ],
         exclude: /node_modules/,
       },
       {
@@ -127,12 +130,12 @@ module.exports = {
     minimizer: [
       new WebpackUglifyjsPlugin({
         uglifyOptions: {
-          output: {comments: false},
+          output: { comments: false },
           ie8: true,
         },
       }),
       new WebpackOptimizeCSSAssetsPlugin({
-        cssProcessorOptions: {discardComments: {removeAll: true}},
+        cssProcessorOptions: { discardComments: { removeAll: true } },
       }),
     ],
     splitChunks: {
@@ -148,6 +151,6 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new WebpackMiniCssExtractPlugin({filename: '../css/[name].css'}),
+    new WebpackMiniCssExtractPlugin({ filename: '../css/[name].css' }),
   ].concat(pages),
 };
