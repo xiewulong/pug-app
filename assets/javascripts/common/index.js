@@ -10,4 +10,5 @@ import 'normalize.css';
 import '../../stylesheets/common.scss';
 
 // Javascripts
+import 'core-js/fn/promise/finally';
 import 'jquery';
