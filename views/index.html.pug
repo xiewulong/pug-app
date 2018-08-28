@@ -1,13 +1,13 @@
 extends layouts/application.layout.pug
 
+append title
+  = ' - Page list'
+
 append css
   link(rel="stylesheet", type="text/css", href=`./css/index.css`)
 
 append js
   script(type="text/javascript", src=`./js/index.js`)
-
-block title
-  = 'Page list - '
 
 block content
   ol

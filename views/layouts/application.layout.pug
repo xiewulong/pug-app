@@ -1,8 +1,9 @@
 - var locals = locals || htmlWebpackPlugin.options.title
-- var version = locals.version
 - var author = locals.author
-- var keywords = locals.keywords
 - var description = locals.description
+- var keywords = locals.keywords
+- var title = locals.title
+- var version = locals.version
 
 include ../mixins/header.mixin.pug
 include ../mixins/footer.mixin.pug
@@ -12,7 +13,7 @@ html(lang="zh-cn" xml:lang="zh-cn")
   head
     title
       block title
-      = description
+        = title
     meta(charset="utf-8")
     meta(name="author" content!=author)
     meta(name="description" content=description)

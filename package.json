@@ -1,6 +1,7 @@
 {
   "name": "pug-app",
   "version": "0.0.1",
+	"title": "Pug app",
   "description": "App frame on pug",
   "private": true,
   "scripts": {

@@ -40,6 +40,7 @@ fs.readdirSync(page_path).forEach(filename => {
       author: pkg.author,
       description: pkg.description,
       keywords: pkg.keywords.join(', '),
+      title: pkg.title,
       version: pkg.version,
     },
     template: `${page_path}/${name}.pug`,
