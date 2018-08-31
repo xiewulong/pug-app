@@ -11,4 +11,7 @@ import '../../stylesheets/common.scss';
 
 // Javascripts
 import 'core-js/fn/promise/finally';
+// import 'core-js/modules/es6.object.assign';
+// import 'core-js/shim';
 import 'jquery';
+// import 'regenerator-runtime/runtime';
