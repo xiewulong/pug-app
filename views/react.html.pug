@@ -1,0 +1,12 @@
+extends layouts/application.react.layout.pug
+
+prepend title
+  = 'React - '
+
+append css
+  link(rel="stylesheet", type="text/css", href=`./css/react.css`)
+
+append js
+  script(type="text/javascript", src=`./js/react.js`)
+
+block content

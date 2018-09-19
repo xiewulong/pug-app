@@ -64,6 +64,8 @@ module.exports = {
   },
   externals: {
     jquery: 'jQuery',
+    react: 'React',
+    'react-dom': 'ReactDOM',
     vue: 'Vue',
     'vue-router': 'VueRouter',
     vuex: 'Vuex',
@@ -103,7 +105,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.js?$/,
+        test: /\.js(x)?$/,
         use: [ 'babel-loader' ],
         exclude: /node_modules/,
       },
