@@ -65,8 +65,8 @@ module.exports = {
   externals: {
     jquery: 'jQuery',
     vue: 'Vue',
-    // vuex: 'Vuex',
-    // 'vue-router': 'VueRouter',
+    'vue-router': 'VueRouter',
+    vuex: 'Vuex',
   },
   module: {
     rules: [

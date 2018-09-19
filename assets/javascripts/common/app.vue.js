@@ -16,7 +16,7 @@ Vue.use(VueRouter);
 
 export default class {
 
-  constructor(components = {}, state = {}, routes = [], el = '#app') {
+  constructor(components = {}, routes = [], state = {}, el = '#app') {
     this.el = el;
     this.components = {
       App,

@@ -8,5 +8,11 @@
 import './common';
 import '../stylesheets/vue.scss';
 import App from './common/app.vue';
+import Foo from './components/foo.vue';
+import Bar from './components/bar.vue';
 
-new App;
+new App({}, [
+  { path: '/', redirect: '/foo' },
+  { path: '/foo', component: Foo },
+  { path: '/bar', component: Bar, alias: '/bar/alias' },
+]);

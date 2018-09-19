@@ -1,6 +1,6 @@
 <template lang="pug">
-.app App
-  slot
+.bar Bar
+  p: router-link(to="/foo") Go to Foo
 </template>
 
 <script>
@@ -44,7 +44,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../stylesheets/config';
 
-.app {
+.bar {
 
 }
 </style>
