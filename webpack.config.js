@@ -13,6 +13,7 @@ const WebpackHtmlPlugin = require('html-webpack-plugin');
 const WebpackMiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackOptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const WebpackUglifyjsPlugin = require('uglifyjs-webpack-plugin');
+const WebpackVueLoaderPlugin = require('vue-loader/lib/plugin');
 const pkg = require('./package.json');
 
 const base_path = __dirname;
@@ -57,23 +58,30 @@ module.exports = {
   },
   resolve: {
     alias: {
-      // 'vue$': `vue/dist/vue.common.js`,
+      // 'vue$': 'vue/dist/vue.esm.js',
     },
     // extensions: [ '.js', '.web.js', '.webpack.js' ],
   },
   externals: {
     jquery: 'jQuery',
+    vue: 'Vue',
+    // vuex: 'Vuex',
+    // 'vue-router': 'VueRouter',
   },
   module: {
     rules: [
       {
         test: /\.pug$/,
-        use: [
+        oneOf: [
           {
             loader: 'pug-loader',
+            exclude: /\.vue.pug$/,
             options: {
               pretty: true,
             },
+          },
+          {
+            loader: 'pug-plain-loader',
           },
         ],
       },
@@ -98,6 +106,25 @@ module.exports = {
         test: /\.js?$/,
         use: [ 'babel-loader' ],
         exclude: /node_modules/,
+      },
+      {
+        test: /\.vue$/,
+        use: [
+          {
+            loader: 'vue-loader',
+            options: {
+              loaders: {
+                scss: [
+                  WebpackMiniCssExtractPlugin.loader,
+                  'vue-style-loader',
+                  'css-loader',
+                  'postcss-loader',
+                  'sass-loader',
+                ],
+              },
+            },
+          },
+        ],
       },
       {
         test: /\.(gif|jpe?g|png)(\?.*)?$/,
@@ -152,6 +179,7 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
+    new WebpackVueLoaderPlugin(),
     new WebpackMiniCssExtractPlugin({ filename: '../css/[name].css' }),
   ].concat(pages),
 };

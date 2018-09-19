@@ -7,3 +7,4 @@
 
 import './common';
 import '../stylesheets/index.scss';
+import 'jquery';
