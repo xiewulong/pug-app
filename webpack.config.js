@@ -50,138 +50,142 @@ fs.readdirSync(page_path).forEach(filename => {
   }));
 });
 
-module.exports = {
-  entry: entries,
-  output: {
-    path: output_path,
-    filename: '[name].js',
-  },
-  resolve: {
-    alias: {
-      // 'vue$': 'vue/dist/vue.esm.js',
+module.exports = (env, argv) => {
+  let is_production = argv.mode == 'production';
+
+  return {
+    entry: entries,
+    output: {
+      path: output_path,
+      filename: '[name].js',
     },
-    // extensions: [ '.js', '.web.js', '.webpack.js' ],
-  },
-  externals: {
-    jquery: 'jQuery',
-    react: 'React',
-    'react-dom': 'ReactDOM',
-    vue: 'Vue',
-    'vue-router': 'VueRouter',
-    vuex: 'Vuex',
-  },
-  module: {
-    rules: [
-      {
-        test: /\.pug$/,
-        oneOf: [
-          {
-            loader: 'pug-loader',
-            exclude: /\.vue.pug$/,
-            options: {
-              pretty: true,
-            },
-          },
-          {
-            loader: 'pug-plain-loader',
-          },
-        ],
+    resolve: {
+      alias: {
+        // 'vue$': 'vue/dist/vue.esm.js',
       },
-      {
-        test: /\.css$/,
-        use: [
-          WebpackMiniCssExtractPlugin.loader,
-          'css-loader?sourceMap',
-          'postcss-loader?sourceMap',
-        ],
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          WebpackMiniCssExtractPlugin.loader,
-          'css-loader?sourceMap',
-          'postcss-loader?sourceMap',
-          'sass-loader?sourceMap',
-        ],
-      },
-      {
-        test: /\.jsx?$/,
-        use: [ 'babel-loader' ],
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.vue$/,
-        use: [
-          {
-            loader: 'vue-loader',
-            options: {
-              loaders: {
-                scss: [
-                  WebpackMiniCssExtractPlugin.loader,
-                  'vue-style-loader',
-                  'css-loader',
-                  'postcss-loader',
-                  'sass-loader',
-                ],
+      // extensions: [ '.js', '.web.js', '.webpack.js' ],
+    },
+    externals: {
+      jquery: 'jQuery',
+      react: 'React',
+      'react-dom': 'ReactDOM',
+      vue: 'Vue',
+      'vue-router': 'VueRouter',
+      vuex: 'Vuex',
+    },
+    module: {
+      rules: [
+        {
+          test: /\.pug$/,
+          oneOf: [
+            {
+              loader: 'pug-loader',
+              exclude: /\.vue.pug$/,
+              options: {
+                pretty: !is_production,
               },
             },
-          },
-        ],
-      },
-      {
-        test: /\.(gif|jpe?g|png)(\?.*)?$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              fallback: 'file-loader',
-              limit: 8192,
-              name: '../images/[name].[ext]',
+            {
+              loader: 'pug-plain-loader',
             },
-          },
-        ],
-      },
-      {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              fallback: 'file-loader',
-              limit: 8192,
-              name: '../fonts/[name].[ext]',
-            },
-          },
-        ],
-      },
-    ],
-  },
-  optimization: {
-    minimizer: [
-      new WebpackUglifyjsPlugin({
-        uglifyOptions: {
-          output: { comments: false },
-          ie8: true,
+          ],
         },
-      }),
-      new WebpackOptimizeCSSAssetsPlugin({
-        cssProcessorOptions: { discardComments: { removeAll: true } },
-      }),
-    ],
-    splitChunks: {
-      cacheGroups: {
-        common: {
-          chunks: 'all',
-          minChunks: 2,
-          minSize: 1,
-          name: 'common',
+        {
+          test: /\.css$/,
+          use: [
+            WebpackMiniCssExtractPlugin.loader,
+            'css-loader',
+            'postcss-loader',
+          ],
+        },
+        {
+          test: /\.scss$/,
+          use: [
+            WebpackMiniCssExtractPlugin.loader,
+            'css-loader',
+            'postcss-loader',
+            'sass-loader',
+          ],
+        },
+        {
+          test: /\.jsx?$/,
+          use: [ 'babel-loader' ],
+          exclude: /node_modules/,
+        },
+        {
+          test: /\.vue$/,
+          use: [
+            {
+              loader: 'vue-loader',
+              options: {
+                loaders: {
+                  scss: [
+                    WebpackMiniCssExtractPlugin.loader,
+                    'vue-style-loader',
+                    'css-loader',
+                    'postcss-loader',
+                    'sass-loader',
+                  ],
+                },
+              },
+            },
+          ],
+        },
+        {
+          test: /\.(gif|jpe?g|png)(\?.*)?$/,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                fallback: 'file-loader',
+                limit: 8192,
+                name: '../images/[name].[ext]',
+              },
+            },
+          ],
+        },
+        {
+          test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                fallback: 'file-loader',
+                limit: 8192,
+                name: '../fonts/[name].[ext]',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    optimization: {
+      minimizer: [
+        new WebpackUglifyjsPlugin({
+          uglifyOptions: {
+            output: { comments: false },
+            ie8: true,
+          },
+        }),
+        new WebpackOptimizeCSSAssetsPlugin({
+          cssProcessorOptions: { discardComments: { removeAll: true } },
+        }),
+      ],
+      splitChunks: {
+        cacheGroups: {
+          common: {
+            chunks: 'all',
+            minChunks: 2,
+            minSize: 1,
+            name: 'common',
+          },
         },
       },
     },
-  },
-  plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new WebpackVueLoaderPlugin(),
-    new WebpackMiniCssExtractPlugin({ filename: '../css/[name].css' }),
-  ].concat(pages),
+    plugins: [
+      new webpack.optimize.OccurrenceOrderPlugin(),
+      new WebpackVueLoaderPlugin(),
+      new WebpackMiniCssExtractPlugin({ filename: '../css/[name].css' }),
+    ].concat(pages),
+  };
 };
