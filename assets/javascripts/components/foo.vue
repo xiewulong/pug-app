@@ -11,11 +11,13 @@ export default {
   },
 
   props: {
-    // loading: String,
+
   },
 
   data() {
-    return {};
+    return {
+
+    };
   },
 
   computed: {

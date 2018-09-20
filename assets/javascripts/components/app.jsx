@@ -26,7 +26,7 @@ export default class App extends React.Component {
 
   }
 
-  handleClick() {
+  handle_click() {
     console.log('Click event');
   }
 
